@@ -16,10 +16,9 @@ The web UI (port 8099, password protected) shows the latest counts and run histo
 
 ## Install
 
-1. **Publish the image.** Push this folder to GitHub as `UnheardOTP/truenas-sbomgen`. The included workflow builds `ghcr.io/unheardotp/truenas-sbomgen` on every push and weekly, so the latest Syft, Grype and base-image patches get picked up. Make the package public under the repo's Packages settings, or add GHCR credentials in TrueNAS.
-2. **Create a dataset** for results, for example `Media/apps/sbomgen`. The Grype database (several hundred MB) and image exports during scans live here.
-3. In TrueNAS, go to **Apps → Discover Apps → ⋮ → Install via YAML**. Paste `compose.yaml` and change `UI_PASSWORD` and the dataset path.
-4. Open `http://<truenas>:8099` and press **Scan now**. The first run downloads the vulnerability database, so it takes a few minutes.
+1. **Create a dataset** for results, for example `Media/apps/sbomgen`. The Grype database (several hundred MB) and image exports during scans live here.
+2. In TrueNAS, go to **Apps → Discover Apps → ⋮ → Install via YAML**. Paste `compose.yaml` and change `UI_PASSWORD` and the dataset path.
+3. Open `http://<truenas>:8099` and press **Scan now**. The first run downloads the vulnerability database, so it takes a few minutes.
 
 Settings are environment variables in the YAML (schedule, scope, notifications, Dependency-Track). Change them under Apps → Edit. The page shows the active settings and the next scheduled run.
 
