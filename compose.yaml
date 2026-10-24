@@ -25,7 +25,7 @@ services:
       DT_URL: ""                                       # optional Dependency-Track API server
       DT_API_KEY: ""
     volumes:
-      - /mnt/tank/apps/sbomgen:/data                   # CHANGE to a dataset on your pool
+      - /mnt/Media/apps/sbomgen:/data                  # CHANGE to a dataset on your pool
       - /:/host:ro                                     # host filesystem, read-only, for the OS SBOM
     # Least privilege: no capabilities except reading files regardless of permissions.
     cap_drop: [ALL]
