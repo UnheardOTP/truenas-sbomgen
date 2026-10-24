@@ -16,7 +16,7 @@ The web UI (port 8099, password protected) shows the latest counts and run histo
 
 ## Install
 
-1. **Create a dataset** for results, for example `Media/apps/sbomgen`. The Grype database (several hundred MB) and image exports during scans live here.
+1. **Create a dataset** for results, for example `Media/data`. The Grype database (several hundred MB) and image exports during scans live here.
 2. In TrueNAS, go to **Apps → Discover Apps → ⋮ → Install via YAML**. Paste `compose.yaml` and change `UI_PASSWORD` and the dataset path.
 3. Open `http://<truenas>:8099` and press **Scan now**. The first run downloads the vulnerability database, so it takes a few minutes.
 

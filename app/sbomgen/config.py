@@ -29,7 +29,7 @@ class Config:
     dt_api_key: str = field(default_factory=lambda: _env("DT_API_KEY"))
     ui_user: str = field(default_factory=lambda: _env("UI_USER", "admin"))
     ui_password: str = field(default_factory=lambda: _env("UI_PASSWORD"))
-    port: int = field(default_factory=lambda: int(_env("PORT", "8080")))
+    port: int = field(default_factory=lambda: int(_env("PORT", "8099")))
     docker_host: str = field(default_factory=lambda: _env("DOCKER_HOST"))
 
     @property

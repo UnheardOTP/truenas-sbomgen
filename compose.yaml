@@ -7,7 +7,7 @@ services:
     restart: unless-stopped
     depends_on: [socket-proxy]
     ports:
-      - "8099:8080"                                   # web UI at http://<truenas>:8099
+      - "8099:8099"                                   # web UI at http://<truenas>:8099 (change the left number if 8099 is taken)
     environment:
       TZ: America/New_York
       UI_USER: admin
@@ -25,7 +25,7 @@ services:
       DT_URL: ""                                       # optional Dependency-Track API server
       DT_API_KEY: ""
     volumes:
-      - /mnt/Media/apps/sbomgen:/data                  # CHANGE to a dataset on your pool
+      - /mnt/Media/data:/data                          # CHANGE to a dataset on your pool
       - /:/host:ro                                     # host filesystem, read-only, for the OS SBOM
     # Least privilege: no capabilities except reading files regardless of permissions.
     cap_drop: [ALL]

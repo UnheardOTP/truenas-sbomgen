@@ -18,8 +18,8 @@ COPY --from=tools /out/VERSIONS /etc/sbomgen-tool-versions
 COPY app/ /app/
 ENV PYTHONUNBUFFERED=1 PYTHONPATH=/app \
     SYFT_CHECK_FOR_APP_UPDATE=false GRYPE_CHECK_FOR_APP_UPDATE=false \
-    DATA_DIR=/data HOST_ROOT=/host PORT=8080 \
+    DATA_DIR=/data HOST_ROOT=/host PORT=8099 \
     XDG_CACHE_HOME=/data/.cache HOME=/data
-EXPOSE 8080
+EXPOSE 8099
 HEALTHCHECK --interval=60s --timeout=5s CMD python -c "import urllib.request,os;urllib.request.urlopen(f'http://127.0.0.1:{os.environ[\"PORT\"]}/healthz',timeout=4)"
 CMD ["python", "-m", "sbomgen"]
