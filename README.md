@@ -1,6 +1,6 @@
 # TrueNAS SBOM Generator
 
-A TrueNAS Community Edition (formerly SCALE) app that inventories the whole server on a schedule and reports known vulnerabilities. It's the same idea as the Unraid plugin, packaged as a custom app.
+A TrueNAS Community Edition (formerly SCALE) app that inventories the whole server on a schedule and reports known vulnerabilities.
 
 **Each scan produces**
 
