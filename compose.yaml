@@ -1,0 +1,50 @@
+# TrueNAS SBOM Generator: paste into Apps -> Discover Apps -> (⋮) Install via YAML.
+# Before installing, change the two lines marked CHANGE.
+services:
+  sbomgen:
+    image: ghcr.io/unheardotp/truenas-sbomgen:latest
+    container_name: sbomgen
+    restart: unless-stopped
+    depends_on: [socket-proxy]
+    ports:
+      - "8099:8080"                                   # web UI at http://<truenas>:8099
+    environment:
+      TZ: America/New_York
+      UI_USER: admin
+      UI_PASSWORD: "change-me"                         # CHANGE
+      DOCKER_HOST: tcp://socket-proxy:2375
+      SCAN_HOST: "yes"                                 # TrueNAS OS packages + kernel
+      SCAN_CONTAINERS: "yes"                           # every app's images
+      VULN_SCAN: "yes"
+      SCHEDULE: weekly                                 # daily | weekly | off
+      SCHED_DOW: sun
+      SCHED_TIME: "03:17"
+      KEEP_RUNS: "12"
+      NOTIFY: new                                      # new | always | off
+      WEBHOOK_URL: ""                                  # Discord or Slack-style webhook
+      DT_URL: ""                                       # optional Dependency-Track API server
+      DT_API_KEY: ""
+    volumes:
+      - /mnt/tank/apps/sbomgen:/data                   # CHANGE to a dataset on your pool
+      - /:/host:ro                                     # host filesystem, read-only, for the OS SBOM
+    # Least privilege: no capabilities except reading files regardless of permissions.
+    cap_drop: [ALL]
+    cap_add: [DAC_READ_SEARCH]
+    security_opt: [no-new-privileges:true]
+    read_only: true
+    tmpfs: [/tmp]
+
+  # Read-only Docker API: lists containers and exports images, refuses everything else.
+  socket-proxy:
+    image: tecnativa/docker-socket-proxy:latest
+    container_name: sbomgen-socket-proxy
+    restart: unless-stopped
+    environment:
+      CONTAINERS: 1
+      IMAGES: 1
+      INFO: 1
+      VERSION: 1
+      POST: 0
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    security_opt: [no-new-privileges:true]
